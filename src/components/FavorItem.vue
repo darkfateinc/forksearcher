@@ -1,7 +1,7 @@
 <template>
   <div class="list-wrap">
-    <button type="button" class="star" placeholder="Добавить в избранное" @click.prevent="addToChange(item)">
-      Add to favourites
+    <button type="button" class="star" placeholder="Добавить в избранное" @click.prevent="removeFavor(item.id)">
+      Remove
     </button>
     <div class="">{{item.name}}</div>
     <div class="">{{item.owner.login}}</div>
@@ -19,9 +19,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['addToChanged']),
-    addToChange(item){
-      this.addToChanged(item)
+    ...mapActions(['removeFromChanged']),
+    removeFavor(id){
+      this.removeFromChanged(id)
     }
   }
 }
@@ -31,7 +31,7 @@ export default {
   .star {
     display: flex;
     padding: 0;
-    
+
     align-items: center;
     justify-content: center;
     cursor: pointer;

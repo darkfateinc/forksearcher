@@ -1,13 +1,14 @@
 <template>
   <div class="">
+      <div><h3>Избранное</h3></div>
       <div class="list-wrap">
-        <button type="button" name="button" id="star" disabled>Add to favourites</button>
+        <button type="button" name="button" id="star" disabled>Remove</button>
         <div class=""><strong>Название</strong></div>
         <div class=""><strong>Владелец</strong></div>
         <div class=""><strong>Оценка</strong></div>
         <div class=""><strong>Ссылка</strong></div>
       </div>
-      <ForkItem
+      <FavorItem
         v-for="(p, index) in collection"
         v-bind:item="p"
         v-bind:key="index"
@@ -21,14 +22,14 @@
 </template>
 
 <script>
-import ForkItem from '@/components/ForkItem'
+import FavorItem from '@/components/FavorItem'
 import * as _ from 'lodash';
 export default {
   props: ['data', 'totalItems', 'perPage', 'currentPage', 'total'],
   data(){
     return {
       pagination: {},
-      totalLength: 0
+      totalLength: 0,
     }
   },
   watch: {
@@ -38,7 +39,7 @@ export default {
     }
   },
   components: {
-    ForkItem
+    FavorItem
   },
   created(){
     //Инициализация при старте - выбирает первую страницу.

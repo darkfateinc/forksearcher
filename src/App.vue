@@ -11,7 +11,7 @@
       :perPage="1"
     />
     <FavorList
-      :data="filteredSearchFavors"
+      :data="allFavors"
       :totalItems="Math.ceil(allForks.length / 4)"
       :total="allForks.length"
       :perPage="5"
@@ -46,12 +46,6 @@ export default {
     //Геттер, возвращает все данные (список) таблицы
     ...mapGetters(["allForks", "allFavors"]),
     //Обработчик строки поиска, он же - поиск форков
-
-    filteredSearchFavors: function(){
-      return this.allFavors.filter((item)=>{
-        return item.name.match(this.search)
-      })
-    },
 
   },
   components: {

@@ -1,15 +1,22 @@
 import {db} from '../../firebase'
 export default {
   actions: {
-    async fetchForks(ctx){
-      let resp = await fetch(`https://api.github.com/search/repositories?q=user%3Astrongloop+repo%3Aexpress+express`);
-        if(resp.ok) {
-          let json = await resp.json();
-          //console.log(json.items)
-          return ctx.commit('updateForks', json.items);
-        }else{
-          alert("HTTP error: " + resp.status);
-        }
+    async fetchForks(ctx, res){
+      if(res){
+        let str = res.split('/')
+        let resp = await fetch(`https://api.github.com/search/repositories?q=user%3A${str[0]}+repo%3A${str[1]}`);
+          if(resp.ok) {
+            let json = await resp.json();
+            if(str[1]){
+              json.items = json.items.filter((item)=>{
+                return item.name.match(str[1])
+              })
+            }
+            return ctx.commit('updateForks', json.items);
+          }else{
+            alert("HTTP error: " + resp.status);
+          }
+      }
     },
 
     fetchFavors(ctx) {
